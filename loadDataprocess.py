@@ -5,6 +5,7 @@ from metadataExtractor import MetadataExtractor
 from kafka_objects.producer import Producer
 from kafka_objects.consumer import Consumer
 
+
 load_dotenv()
 AUODIO_FOLDER = Path(os.getenv("AUDIO_FOLDER"))
 class LoadDataprocess:
@@ -26,6 +27,7 @@ class LoadDataprocess:
         for product in self.products:
             self.producer.publish_message("metadata", product)
             print(f"Published metadata for {product['filename']}")
+
 
 
 if __name__ == "__main__":
