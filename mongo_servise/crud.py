@@ -4,11 +4,20 @@ from pymongo import MongoClient
 from gridfs import GridFS
 from .conection import MongoConnection
 from config import Config
+from logger import Logger
+import logging
+
+try:
+    logger = Logger.get_logger()
+except Exception as e:
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
 class MongoCRUD:
     def __init__(self, uri: str,db_name: str, collection_name: str):
         self.conn = MongoConnection(uri, db_name, collection_name)
         self.collection = self.conn.get_collection()
         self.fs = GridFS(self.conn.db)
+        logger.info("MongoCRUD initialized.")
 
     # CREATE
     def insert_file(self, file_path: Path, hash_value: str) -> str:
@@ -23,6 +32,7 @@ class MongoCRUD:
             "gridfs_id": gridfs_id
         }
         result = self.collection.insert_one(doc)
+        logger.info("File inserted successfully.")
         return str(result.inserted_id)
 
     # READ
@@ -35,6 +45,7 @@ class MongoCRUD:
     def download_file(self, doc_id: str, target_path: Path):
         doc = self.get_document_by_id(doc_id)
         if not doc:
+            logger.error("doc not found")
             raise FileNotFoundError("doc not found")
 
         if doc.get("storage_type") == "binary":
@@ -45,6 +56,7 @@ class MongoCRUD:
             with open(target_path, "wb") as out:
                 out.write(grid_out.read())
         else:
+            logger.error("storage type not found")
             raise ValueError("storage type not found")
 
     # UPDATE
@@ -70,3 +82,4 @@ class MongoCRUD:
 
     def close_connection(self):
         self.conn.close()
+        logger.info("MongoCRUD connection closed.")

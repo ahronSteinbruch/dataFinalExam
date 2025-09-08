@@ -1,7 +1,13 @@
 import os
-from pprint import pprint
 from elasticsearch import Elasticsearch
+from logger import Logger
+import logging
 
+try:
+    logger = Logger.get_logger()
+except Exception as e:
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
 class ConnES:
     _instance = None
 
@@ -29,10 +35,9 @@ class ConnES:
                     f"{self.scheme}://{self.host}:{self.port}"
                 )
                 client_info = self._client.info()
-                print(f"Connected to Elasticsearch at {self.host}:{self.port}!")
-                pprint(client_info.body)
+                logger.info(f"Connected to Elasticsearch at {self.host}:{self.port}!")
             except Exception as e:
-                print(f"Failed to connect to Elasticsearch: {e}")
+                logger.error(f"Failed to connect to Elasticsearch: {e}")
         return self._client
 
 

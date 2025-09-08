@@ -1,10 +1,14 @@
 from .crud import Crud
 from .index_init import Index_init
 from .connection import ConnES
+from logger import Logger
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+try:
+    logger = Logger.get_logger()
+except Exception as e:
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
 class DAL:
     def __init__(self,index_name,create_index=False,mapping=None):
         self.index_name = index_name

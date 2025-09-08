@@ -1,7 +1,14 @@
 from .connection import ConnES
 from uuid import uuid4
 from elasticsearch.helpers import bulk
-from pprint import pprint
+from logger import Logger
+import logging
+
+try:
+    logger = Logger.get_logger()
+except Exception as e:
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
 class Crud:
     def __init__(self, index_name):
         self.es = ConnES.get_instance().connect()
@@ -16,10 +23,10 @@ class Crud:
         """
         try:
             res = self.es.index(index=self.index_name, document=data)
-            print("Data inserted successfully.")
+            logger.info("Data inserted successfully.")
             return res
         except Exception as e:
-            print(f"Failed to insert data: {e}")
+            logger.error(f"Failed to insert data: {e}")
 
     def insert_data_bulk(self, data):
         """
@@ -38,10 +45,10 @@ class Crud:
                 for doc in data
             ]
             res = bulk(self.es,actions)
-            pprint(f"Bulk inserted successfully. Inserted {res[0]} documents.")
+            logger.info(f"Bulk inserted successfully. Inserted {res[0]} documents.")
 
         except Exception as e:
-            print(f"Failed to insert data: {e}")
+            logger.error(f"Failed to insert data: {e}")
 
     def update_data(self, doc_id, data):
         """
@@ -52,10 +59,10 @@ class Crud:
         """
         try:
             res = self.es.update(index=self.index_name, id=doc_id, body={"doc": data})
-            print("Data updated successfully.")
+            logger.info("Data updated successfully.")
             return res
         except Exception as e:
-            print(f"Failed to update data: {e}")
+            logger.error(f"Failed to update data: {e}")
 
     def delete_data(self, doc_id):
         """
@@ -65,10 +72,10 @@ class Crud:
         """
         try:
             res = self.es.delete(index=self.index_name, id=doc_id)
-            print("Data deleted successfully.")
+            logger.info("Data deleted successfully.")
             return res
         except Exception as e:
-            print(f"Failed to delete data: {e}")
+            logger.error(f"Failed to delete data: {e}")
 
     def search_data(self, query):
         """
@@ -78,6 +85,7 @@ class Crud:
         """
         try:
             res = self.es.search(index=self.index_name, body=query)
+            logger.info("Data searched successfully.")
             return res
         except Exception as e:
-            print(f"Failed to search data: {e}")
+            logger.error(f"Failed to search data: {e}")
