@@ -9,8 +9,14 @@ class Config:
     MONGO_COLLECTION = "audio_files"
     ELASTIC_HOST = "http://localhost:9200"
     ELASTIC_INDEX = "audio_files"
+    ELASTIC_LOG_INDEX = "logy"
     ELASTIC_PORT = 9200
     ELASTIC_SCHEME = "http"
     ELASTIC_USERNAME = "elastic"
     ELASTIC_PASSWORD = "elastic"
     ELASTIC_API_KEY = "elastic"
+    LOG_LEVEL = "DEBUG"
+    LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
+    LOG_INDEX = "log"
+    LOG_HOST = "localhost"
+    LOG_PORT = 9200
