@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+
+from config import Config
 from metadataExtractor import MetadataExtractor
 from kafka_objects.producer import Producer
 from kafka_objects.consumer import Consumer
@@ -31,9 +33,6 @@ class LoadDataprocess:
 
 
 if __name__ == "__main__":
-    loadDataprocess = LoadDataprocess(AUODIO_FOLDER)
+    loadDataprocess = LoadDataprocess(Config.AUDIO_FOLDER)
 
-    #check if the metadata is published
-    consumer = Consumer(["metadata"])
-    for message in consumer.get_consumer():
-        print(message)
+

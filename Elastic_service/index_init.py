@@ -5,8 +5,8 @@ class Index_init:
         self.es = ConnES.get_instance().connect()
         self.index_name = index_name
         self.create_index()
-        if mapping is not None:
-            self.create_mapping(mapping)
+        # if mapping is None:
+        #     self.create_mapping(mapping)
 
     def create_index(self):
         if not self.es.indices.exists(index=self.index_name):
