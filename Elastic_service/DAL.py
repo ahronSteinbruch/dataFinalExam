@@ -2,6 +2,7 @@ from .crud import Crud
 from .index_init import Index_init
 from .connection import ConnES
 from logger import Logger
+from pprint import pprint
 import logging
 
 try:
@@ -18,8 +19,8 @@ class DAL:
         self.es = ConnES.get_instance().connect()
 
     def get_all(self):
-        return self.crud.search_data({"query": {"match_all": {}}})
-
+        data =self.crud.search_data({"query": {"match_all": {}}})
+        return data["hits"]["hits"]
     def insert_data(self, data):
         return self.crud.insert_data(data)
 

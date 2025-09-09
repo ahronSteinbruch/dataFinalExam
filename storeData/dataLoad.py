@@ -11,7 +11,7 @@ class DataLoad:
     def __init__(self):
         self.consumer = Consumer([Config.KAFKA_TOPIC])
         self.elastic = ElasticUploader(Config.ELASTIC_HOST, Config.ELASTIC_INDEX)
-        self.mongo = MongoUploader(Config.MONGO_URI, Config.MONGO_DB, Config.MONGO_COLLECTION)
+        self.mongo = MongoUploader(Config.MONGO_URI, Config.MONGO_DB, Config.MONGO_FS_COLLECTION)
 
     def add_hash_key(self, data):
         data["hash"] = get_file_hash(data["path"])

@@ -15,3 +15,4 @@ class ElasticUploader:
         self.dal.insert_data(metadata)
         logger.info(f"Metadata uploaded to Elasticsearch successfully.")
 
+    #upload text by hash

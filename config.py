@@ -3,10 +3,11 @@ from pathlib import Path
 class Config:
     KAFKA_BROKER = "localhost:9092"
     KAFKA_TOPIC = "metadata"
-    AUDIO_FOLDER = Path("/Users/user/Desktop/podcasts/")
+    AUDIO_FOLDER = Path("/podcasts/")
     MONGO_URI = "mongodb://localhost:27017"
     MONGO_DB = "audio_files"
     MONGO_COLLECTION = "audio_files"
+    MONGO_FS_COLLECTION = "fs.chunks"
     ELASTIC_HOST = "http://localhost:9200"
     ELASTIC_INDEX = "audio_files"
     ELASTIC_LOG_INDEX = "logy"

@@ -6,7 +6,7 @@ from .conection import MongoConnection
 from config import Config
 from logger import Logger
 import logging
-
+import re
 try:
     logger = Logger.get_logger()
 except Exception as e:
@@ -25,22 +25,31 @@ class MongoCRUD:
 
 
         with open(file_path, "rb") as f:
-            gridfs_id = self.fs.put(f, filename=file_path.name, metadata={"hash": hash_value})
-        doc = {
-            "hash": hash_value,
-            "storage_type": "gridfs",
-            "gridfs_id": gridfs_id
-        }
-        result = self.collection.insert_one(doc)
-        logger.info("File inserted successfully.")
-        return str(result.inserted_id)
+            gridfs_id = self.fs.put(f,_id=hash_value, filename=file_path.name,hash=hash_value)
+            logger.info("File inserted successfully.")
+        return gridfs_id
 
     # READ
     def get_document_by_id(self, doc_id: str) -> dict | None:
-        return self.collection.find_one({"_id": ObjectId(doc_id)})
+        return self.fs.find_one({"_id": ObjectId(doc_id)})
 
-    def get_document_by_hash(self, hash_value: str) -> dict | None:
-        return self.collection.find_one({"hash": hash_value})
+    #READ ALL
+    #find all files end with .wav
+
+    def find_all_documents(self):
+        data = self.fs.find({"filename": re.compile(".*\.wav$")})
+        print(data)
+        return data
+
+    def get_all_hash_keys(self):
+        data = self.collection.find()
+        print(data)
+        return [doc["hash"] for doc in data]
+
+    def get_document_by_hash(self, hash_value: str):
+        data = self.fs.find_one({"hash": hash_value})
+        print(data)
+        return data
 
     def download_file(self, doc_id: str, target_path: Path):
         doc = self.get_document_by_id(doc_id)

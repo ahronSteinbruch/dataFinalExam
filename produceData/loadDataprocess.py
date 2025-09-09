@@ -15,7 +15,7 @@ except Exception as e:
     logger.setLevel(logging.DEBUG)
 
 load_dotenv()
-AUODIO_FOLDER = Path(os.getenv("AUDIO_FOLDER"))
+AUODIO_FOLDER = Path(Config.AUDIO_FOLDER)
 class LoadDataprocess:
     def __init__(self, path):
         self.path = Path(path)
