@@ -1,0 +1,6 @@
+
+dotenv
+logging
+pprint
+faster_whisper
+io

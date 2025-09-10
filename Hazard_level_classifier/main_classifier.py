@@ -1,4 +1,4 @@
-from decoder import Decoder
+from .decoder import Decoder
 from utils.Elastic_service.DAL import DAL
 from config import Config
 from utils.logger import Logger

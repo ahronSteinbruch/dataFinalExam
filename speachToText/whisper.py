@@ -2,7 +2,6 @@ from faster_whisper import WhisperModel
 import io
 
 class STT:
-
     model = WhisperModel("tiny", device="cpu", compute_type="int8")
 
     @staticmethod

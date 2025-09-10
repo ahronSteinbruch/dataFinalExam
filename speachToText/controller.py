@@ -4,7 +4,7 @@ from config import Config
 from utils.mongo_servise.crud import MongoCRUD
 from utils.logger import Logger
 import logging
-from whisper import STT
+from .whisper import STT
 from utils.Elastic_service.DAL import DAL
 
 try:
@@ -29,7 +29,6 @@ class TTS_controller:
             all_docs = self.es.get_all_empty_text()
             all_hashs = [doc.get("_source").get("hash") for doc in all_docs]
             all_ids = [doc.get("_id") for doc in all_docs]
-            print(all_ids)
             return all_hashs,all_ids
         except Exception as e:
             logger.error(f"Failed to fetch documents: {str(e)}")
@@ -45,18 +44,13 @@ class TTS_controller:
         try:
             logger.info("Pipeline started.")
             all_keys = self.get_all_hash_keys()[0]
-            print("keis",all_keys)
             all_ids = self.get_all_hash_keys()[1]
-            print("ids",all_ids)
 
             for key,id in zip(all_keys,all_ids):
                 file = self.mongo.get_document_by_hash(key)
                 text = self.SpeechToText(file.read())
-                print(text)
 
-                print(self.es.update_data(id, {"text": text}))
-                pprint(self.es.get_by_id(id))
-
+                self.es.update_data(id, {"text": text})
 
         except Exception as e:
             logger.error(f"Failed to fetch documents: {str(e)}")

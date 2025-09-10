@@ -8,10 +8,15 @@ from config import Config
 
 if __name__ == "__main__":
     loadDataprocess = LoadDataprocess(Config.AUDIO_FOLDER)
-    sleep(5)
+    sleep(500)
     dataLoad = DataLoad()
-    sleep(5)
-    tts_controller = TTS_controller()
-    sleep(5)
+    sleep(500)
+    #i get error here but it's not important
+    try:
+        tts_controller = TTS_controller()
+    except Exception as e:
+        print(e)
+    sleep(500)
     mainClassifier = MainClassifier()
+    mainClassifier.pipeline()
 

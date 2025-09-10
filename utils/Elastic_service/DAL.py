@@ -56,7 +56,6 @@ class DAL:
         return self.crud.search_data(query)
 
     def update_data(self, doc_id,data):
-        print(data)
         return self.crud.update_data(doc_id, data)
 
     def get_by_id(self, doc_id):

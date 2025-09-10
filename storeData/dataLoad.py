@@ -1,10 +1,10 @@
 from utils.kafka_objects.consumer import Consumer
-from getHashForFile import get_file_hash
+from .getHashForFile import get_file_hash
 from pathlib import Path
 from threading import Thread
 from config import Config
-from ElasticUploader import ElasticUploader
-from MongoUploader import MongoUploader
+from .ElasticUploader import ElasticUploader
+from .MongoUploader import MongoUploader
 
 TOPIC = "metadata"
 class DataLoad:
@@ -20,7 +20,6 @@ class DataLoad:
     def load_data(self):
         con = self.consumer.get_consumer()
         for doc in con:
-            print(doc.value)
             data = self.add_hash_key(doc.value)
             self.process_doc(data)
 
@@ -47,9 +46,3 @@ class DataLoad:
         mongo_thread.join()
         elastic_thread.join()
 
-
-
-
-if __name__ == "__main__":
-    dataLoad = DataLoad()
-    dataLoad.load_data()

@@ -1,26 +1,24 @@
 from pathlib import Path
+from os import getenv
 
 class Config:
-    KAFKA_BROKER = "localhost:9092"
-    KAFKA_TOPIC = "metadata"
-    AUDIO_FOLDER = Path("/podcasts/")
-    MONGO_URI = "mongodb://localhost:27017"
-    MONGO_DB = "audio_files"
-    MONGO_COLLECTION = "audio_files"
-    MONGO_FS_COLLECTION = "fs.chunks"
-    ELASTIC_HOST = "http://localhost:9200"
-    ELASTIC_INDEX = "audio_files"
-    ELASTIC_LOG_INDEX = "logy"
-    ELASTIC_PORT = 9200
-    ELASTIC_SCHEME = "http"
-    ELASTIC_USERNAME = "elastic"
-    ELASTIC_PASSWORD = "elastic"
-    ELASTIC_API_KEY = "elastic"
+    KAFKA_BROKER = getenv("KAFKA_BROKER", "localhost:9092")
+    KAFKA_TOPIC = getenv("KAFKA_TOPIC", "metadata")
+    AUDIO_FOLDER = getenv("AUDIO_FOLDER", Path("/podcasts/"))
+    MONGO_URI = getenv("MONGO_URI", "mongodb://localhost:27017")
+    MONGO_DB = getenv("MONGO_DB", "audio_files")
+    MONGO_COLLECTION = getenv("MONGO_COLLECTION", "audio_files")
+    MONGO_FS_COLLECTION = getenv("MONGO_FS_COLLECTION", "fs.chunks")
+    ELASTIC_HOST = getenv("ELASTIC_HOST", "http://localhost:9200")
+    ELASTIC_INDEX = getenv("ELASTIC_INDEX", "audio_files")
+    ELASTIC_LOG_INDEX = getenv("ELASTIC_LOG_INDEX", "logy")
+    ELASTIC_PORT = getenv("ELASTIC_PORT", 9200)
+    ELASTIC_SCHEME = getenv("ELASTIC_SCHEME", "http")
     LOG_LEVEL = "DEBUG"
     LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
-    LOG_INDEX = "log"
-    LOG_HOST = "localhost"
-    LOG_PORT = 9200
+    LOG_INDEX = getenv("LOG_INDEX", "log")
+    LOG_HOST = getenv("LOG_HOST", "localhost")
+    LOG_PORT = getenv("LOG_PORT", 9200)
     FORMAT = "utf-8"
     QUERY = {"query": {
         "bool": {

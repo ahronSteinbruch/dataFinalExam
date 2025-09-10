@@ -1,0 +1,6 @@
+pathlib
+dotenv
+logging
+pprint
+pydub
+kafka
