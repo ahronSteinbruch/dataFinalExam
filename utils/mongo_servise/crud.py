@@ -1,10 +1,8 @@
 from bson.objectid import ObjectId
 from pathlib import Path
-from pymongo import MongoClient
 from gridfs import GridFS
 from .conection import MongoConnection
-from config import Config
-from logger import Logger
+from utils.logger import Logger
 import logging
 import re
 try:

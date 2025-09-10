@@ -1,11 +1,10 @@
-import os
 from dotenv import load_dotenv
 from pathlib import Path
 
 from config import Config
 from metadataExtractor import MetadataExtractor
-from kafka_objects.producer import Producer
-from logger import Logger
+from utils.kafka_objects.producer import Producer
+from utils.logger import Logger
 import logging
 
 try:

@@ -1,7 +1,7 @@
 from .connection import ConnES
 from uuid import uuid4
 from elasticsearch.helpers import bulk
-from logger import Logger
+from utils.logger import Logger
 import logging
 
 try:
@@ -105,3 +105,16 @@ class Crud:
         except Exception as e:
             logger.error(f"Failed to fetch data: {e}")
             return None
+
+    def update_document_fields(self,document_id, updates):
+
+        try:
+            response = self.es.update(
+                index=self.index_name,
+                id=document_id,
+                body={"doc": updates}
+            )
+            logger.info(f"Document {document_id}  updated successfully.")
+            logger.info(response)
+        except Exception as e:
+            logger.error(f"Error updating document {document_id}: {e}")

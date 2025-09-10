@@ -21,3 +21,43 @@ class Config:
     LOG_INDEX = "log"
     LOG_HOST = "localhost"
     LOG_PORT = 9200
+    FORMAT = "utf-8"
+    QUERY = {"query": {
+        "bool": {
+            "should": [
+                {"match":
+                    {
+                        "text":
+                            {
+                                "query":
+                                    "Genocide Apartheid Massacre Nakba Displacement  Blockade Occupation Refugees ICC BDS",
+
+                                "minimum_should_match": 1,
+                                "boost": 2
+                            }
+                    }
+
+                },
+                {"match_phrase": {"text": {"query": "War Crimes", "boost": 2}}},
+                {"match_phrase": {"text": {"query": "Humanitarian Crisis", "boost": 2}}},
+                {
+                    "match":
+                        {
+                            "text":
+                                {
+
+                                    "query":
+                                        "Resistance Liberation Gaza Ceasefire Protest UNRWA",
+
+                                    "minimum_should_match": 1
+                                }
+                        }
+
+                },
+                {"match_phrase": {"text": "Free Palestine"}},
+                {"match_phrase": {"text": "Freedom Flotilla"}}
+            ],
+            "minimum_should_match": 1
+        }
+    }
+}

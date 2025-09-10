@@ -1,4 +1,4 @@
-from mongo_servise.crud import MongoCRUD
+from utils.mongo_servise.crud import MongoCRUD
 
 class MongoUploader:
     def __init__(self, uri, db, collection):

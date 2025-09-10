@@ -1,8 +1,7 @@
 from .crud import Crud
 from .index_init import Index_init
 from .connection import ConnES
-from logger import Logger
-from pprint import pprint
+from utils.logger import Logger
 import logging
 
 try:
@@ -56,8 +55,12 @@ class DAL:
     def search(self, query: dict):
         return self.crud.search_data(query)
 
-    def update_data(self, doc_id, data):
+    def update_data(self, doc_id,data):
+        print(data)
         return self.crud.update_data(doc_id, data)
 
     def get_by_id(self, doc_id):
         return self.crud.get_by_id(doc_id)
+
+    def get_all_docs_not_updated(self):
+        return self.crud.search_data({"query": {"bool": {"must_not": {"exists": {"field": "bds_percent"}}}}})

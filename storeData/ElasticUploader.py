@@ -1,5 +1,5 @@
-from Elastic_service.DAL import DAL ,ConnES
-from logger import Logger
+from utils.Elastic_service.DAL import DAL
+from utils.logger import Logger
 import logging
 
 try:

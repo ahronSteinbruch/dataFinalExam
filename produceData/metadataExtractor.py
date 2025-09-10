@@ -1,6 +1,6 @@
 from pathlib import Path
 import wave
-from logger import Logger
+from utils.logger import Logger
 import logging
 
 try:

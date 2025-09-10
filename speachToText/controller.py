@@ -1,11 +1,11 @@
 from pprint import pprint
 
 from config import Config
-from mongo_servise.crud import MongoCRUD
-from logger import Logger
+from utils.mongo_servise.crud import MongoCRUD
+from utils.logger import Logger
 import logging
 from whisper import STT
-from Elastic_service.DAL import DAL
+from utils.Elastic_service.DAL import DAL
 
 try:
     logger = Logger.get_logger()
@@ -24,7 +24,6 @@ class TTS_controller:
         self.mongo = MongoCRUD(URI, DB, COLLECTION)
         self.es = DAL(INDEX,create_index=False)
         self.whisper = STT()
-        self.ESdal = DAL(INDEX,create_index=False)
     def get_all_hash_keys(self) :
         try:
             all_docs = self.es.get_all_empty_text()

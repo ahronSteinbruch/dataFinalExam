@@ -1,4 +1,4 @@
-from kafka_objects.consumer import Consumer
+from utils.kafka_objects.consumer import Consumer
 from getHashForFile import get_file_hash
 from pathlib import Path
 from threading import Thread
