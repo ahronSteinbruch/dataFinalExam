@@ -21,6 +21,11 @@ class DAL:
     def get_all(self):
         data =self.crud.search_data({"query": {"match_all": {}}})
         return data["hits"]["hits"]
+
+    #get all the docs where the text is empty
+    def get_all_empty_text(self):
+        data =self.crud.search_data({"query": {"bool": {"must_not": {"exists": {"field": "text"}}}}})
+        return data["hits"]["hits"]
     def insert_data(self, data):
         return self.crud.insert_data(data)
 
@@ -50,3 +55,9 @@ class DAL:
             return 0
     def search(self, query: dict):
         return self.crud.search_data(query)
+
+    def update_data(self, doc_id, data):
+        return self.crud.update_data(doc_id, data)
+
+    def get_by_id(self, doc_id):
+        return self.crud.get_by_id(doc_id)

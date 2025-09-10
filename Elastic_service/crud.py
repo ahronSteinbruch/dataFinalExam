@@ -89,3 +89,19 @@ class Crud:
             return res
         except Exception as e:
             logger.error(f"Failed to search data: {e}")
+    #delete all the docs
+    def delete_all(self):
+        try:
+            res = self.es.delete_by_query(index=self.index_name, body={"query": {"match_all": {}}})
+            logger.info("All data deleted successfully.")
+        except Exception as e:
+            logger.error(f"Failed to delete all data: {e}")
+
+    def get_by_id(self, doc_id):
+        try:
+            res = self.es.get(index=self.index_name, id=doc_id)
+            logger.info("Data fetched successfully.")
+            return res
+        except Exception as e:
+            logger.error(f"Failed to fetch data: {e}")
+            return None
